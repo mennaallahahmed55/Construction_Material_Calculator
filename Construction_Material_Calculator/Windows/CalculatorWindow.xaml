@@ -1,0 +1,215 @@
+﻿<Window x:Class="Construction_Material_Calculator.Windows.CalculatorWindow" 
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml" 
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+        xmlns:local="clr-namespace:Construction_Material_Calculator.Windows" 
+        mc:Ignorable="d" Title="Material Calculator" 
+        Height="600" Width="800" 
+        Background="#F8F9FA">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <!-- Header -->
+        <Border Grid.Row="0" Background="White" BorderBrush="#E9ECEF" BorderThickness="0,0,0,1">
+            <TextBlock Text="Material Calculator" FontSize="16" FontWeight="Bold" Foreground="#212529" Margin="20"/>
+        </Border>
+        <!-- TabControl -->
+        <TabControl Grid.Row="1" Margin="0" Background="#F8F9FA" BorderBrush="#E9ECEF">
+            <TabItem Header="Concrete" Background="White">
+                <Grid Margin="20" Background="White">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <!-- Inputs -->
+                    <Grid Grid.Row="0">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="180"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                            <RowDefinition Height="Auto"/>
+                        </Grid.RowDefinitions>
+                        <TextBlock Text="Element Type:" Grid.Row="0" Grid.Column="0" Margin="0,0,10,10" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="ElementTypeCombo" Grid.Row="0" Grid.Column="1" Margin="0,0,0,10" Padding="8" Height="35" Background="White" BorderBrush="#E9ECEF" ItemsSource="{Binding ElementType}"/>
+                        <TextBlock Text="Material Name:" Grid.Row="1" Grid.Column="0" Margin="0,0,10,10" VerticalAlignment="Center"/>
+                        <ComboBox x:Name="MaterialNameCombo" Grid.Row="1" Grid.Column="1" Margin="0,0,0,10" Padding="8" Height="35" Background="White" BorderBrush="#E9ECEF" DisplayMemberPath="Name" ItemsSource="{Binding MaterialName}"/>
+                        <TextBlock Text="Length (m):" Grid.Row="2" Grid.Column="0" Margin="0,0,10,10" VerticalAlignment="Center"/>
+                        <TextBox x:Name="LengthBox" Grid.Row="2" Grid.Column="1" Margin="0,0,0,10" Padding="8" Height="35" Background="White" BorderBrush="#E9ECEF"/>
+                        <TextBlock Text="Width (m):" Grid.Row="3" Grid.Column="0" Margin="0,0,10,10" VerticalAlignment="Center"/>
+                        <TextBox x:Name="WidthBox" Grid.Row="3" Grid.Column="1" Margin="0,0,0,10" Padding="8" Height="35" Background="White" BorderBrush="#E9ECEF"/>
+                        <TextBlock Text="Depth / Height (m):" Grid.Row="4" Grid.Column="0" Margin="0,0,10,10" VerticalAlignment="Center"/>
+                        <TextBox x:Name="DepthBox" Grid.Row="4" Grid.Column="1" Margin="0,0,0,10" Padding="8" Height="35" Background="White" BorderBrush="#E9ECEF"/>
+                        <TextBlock Text="Quantity:" Grid.Row="5" Grid.Column="0" Margin="0,0,10,10" VerticalAlignment="Center"/>
+                        <TextBox x:Name="QuantityBox" Grid.Row="5" Grid.Column="1" Margin="0,0,0,10" Padding="8" Height="35" Background="White" BorderBrush="#E9ECEF"/>
+                        <TextBlock Text="Volume:" Grid.Row="6" Grid.Column="0" Margin="0,0,10,0" VerticalAlignment="Center"/>
+                        <TextBox x:Name="VolumeBox" Grid.Row="6" Grid.Column="1" Padding="8" Height="35" Background="White" BorderBrush="#E9ECEF" IsReadOnly="True"/>
+                    </Grid>
+                    <!-- Buttons -->
+                    <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,20" ZIndex="10">
+                        <Button Content="Calculate" Style="{StaticResource MenuButtonStyle}" Background="#007BFF" Foreground="White" Click="Calculate_Click"/>
+                        <Button Content="Save Data" Style="{StaticResource MenuButtonStyle}" Background="#28A745" Foreground="White" Click="Save_Click"/>
+                    </StackPanel>
+                    <!-- Result -->
+                    <TextBlock Grid.Row="2" FontSize="16" FontWeight="Bold" TextAlignment="Center" Margin="0,39,0,-19" x:Name="ResultText" Text="Total Order Volume: 0.0 m³"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Steel" Background="White">
+                <Grid Margin="20" Background="White">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="180"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Bar Diameter:" Grid.Row="0" Margin="0,0,10,10" VerticalAlignment="Center"/>
+                    <ComboBox x:Name="DiameterCombo" Grid.Row="0" Grid.Column="1" Margin="0,0,0,10" Padding="8" Height="35" Background="White" BorderBrush="#E9ECEF">
+                        <ComboBoxItem Content="8"/>
+                        <ComboBoxItem Content="10"/>
+                        <ComboBoxItem Content="12"/>
+                        <ComboBoxItem Content="16"/>
+                        <ComboBoxItem Content="20"/>
+                        <ComboBoxItem Content="25"/>
+                        <ComboBoxItem Content="32"/>
+                    </ComboBox>
+                    <TextBlock Text="Bar Length (m):" Grid.Row="1" Margin="0,0,10,10" VerticalAlignment="Center"/>
+                    <TextBox x:Name="BarLengthBox" Grid.Row="1" Grid.Column="1" Margin="0,0,0,10" Padding="8" Height="35" Background="White" BorderBrush="#E9ECEF" Text="12"/>
+                    <TextBlock Text="Number of Bars:" Grid.Row="2" Margin="0,0,10,10" VerticalAlignment="Center"/>
+                    <TextBox x:Name="BarsCountBox" Grid.Row="2" Grid.Column="1" Margin="0,0,0,10" Padding="8" Height="35" Background="White" BorderBrush="#E9ECEF"/>
+                    <!-- Buttons -->
+                    <StackPanel Grid.Row="3" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,20" ZIndex="10">
+                        <Button Content="Calculate" Style="{StaticResource MenuButtonStyle}" Background="#007BFF" Foreground="White" Click="SteelCalculate_Click"/>
+                        <Button Content="Save Data" Style="{StaticResource MenuButtonStyle}" Background="#28A745" Foreground="White" Click="SteelSave_Click"/>
+                    </StackPanel>
+                    <!-- Result -->
+                    <TextBlock x:Name="SteelResultText" Grid.Row="4" Grid.ColumnSpan="2" FontSize="16" FontWeight="Bold" TextAlignment="Center" Margin="0,20,0,0" Text="Total Steel Weight: 0 kg"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Paint" Background="White">
+                <Grid Margin="20" Background="White">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="180"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Surface Type:" Grid.Row="0" Margin="0,0,10,10" VerticalAlignment="Center"/>
+                    <ComboBox x:Name="SurfaceTypeCombo" Grid.Row="0" Grid.Column="1" Margin="0,0,0,10" Padding="8" Height="35" Background="White" BorderBrush="#E9ECEF">
+                        <ComboBoxItem Content="Interior Wall"/>
+                        <ComboBoxItem Content="Exterior Wall"/>
+                        <ComboBoxItem Content="Ceiling"/>
+                    </ComboBox>
+                    <StackPanel Grid.Row="1" Grid.ColumnSpan="2" Orientation="Horizontal" Margin="0,0,0,10">
+                        <RadioButton x:Name="AreaMode" Content="Enter Area" IsChecked="True" Margin="0,0,20,0" VerticalAlignment="Center"/>
+                        <RadioButton x:Name="LengthHeightMode" Content="Use Length + Height" VerticalAlignment="Center"/>
+                    </StackPanel>
+                    <TextBlock Text="Surface Area (m²):" Grid.Row="2" Margin="0,0,10,10" VerticalAlignment="Center"/>
+                    <TextBox x:Name="AreaBox" Grid.Row="2" Grid.Column="1" Margin="0,0,0,10" Padding="8" Height="35" Background="White" BorderBrush="#E9ECEF"/>
+                    <TextBlock Text="Length (m):" Grid.Row="3" Margin="0,0,10,10" VerticalAlignment="Center"/>
+                    <TextBox x:Name="LengthPaintBox" Grid.Row="3" Grid.Column="1" Margin="0,0,0,10" Padding="8" Height="35" Background="White" BorderBrush="#E9ECEF" IsEnabled="False"/>
+                    <TextBlock Text="Height (m):" Grid.Row="4" Margin="0,0,10,10" VerticalAlignment="Center"/>
+                    <TextBox x:Name="HeightPaintBox" Grid.Row="4" Grid.Column="1" Margin="0,0,0,10" Padding="8" Height="35" Background="White" BorderBrush="#E9ECEF" IsEnabled="False"/>
+                    <TextBlock Text="Number of Coats:" Grid.Row="5" Margin="0,0,10,10" VerticalAlignment="Center"/>
+                    <ComboBox x:Name="CoatsCombo" Grid.Row="5" Grid.Column="1" Margin="0,0,0,10" Padding="8" Height="35" Background="White" BorderBrush="#E9ECEF" SelectedIndex="0">
+                        <ComboBoxItem Content="1"/>
+                        <ComboBoxItem Content="2"/>
+                        <ComboBoxItem Content="3"/>
+                    </ComboBox>
+                    <TextBlock Text="Coverage Rate (m²/L):" Grid.Row="6" Margin="0,0,10,10" VerticalAlignment="Center"/>
+                    <TextBox x:Name="CoverageBox" Grid.Row="6" Grid.Column="1" Margin="0,0,0,10" Padding="8" Height="35" Background="White" BorderBrush="#E9ECEF" Text="12"/>
+                    <!-- Buttons -->
+                    <StackPanel Grid.Row="7" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,20" ZIndex="10">
+                        <Button Content="Calculate" Style="{StaticResource MenuButtonStyle}" Background="#007BFF" Foreground="White" Click="PaintCalculate_Click"/>
+                        <Button Content="Save Data" Style="{StaticResource MenuButtonStyle}" Background="#28A745" Foreground="White" Click="PaintSave_Click"/>
+                    </StackPanel>
+                    <!-- Result -->
+                    <TextBlock x:Name="PaintResultText" Grid.Row="7" Grid.ColumnSpan="2" FontSize="16" FontWeight="Bold" TextAlignment="Center" Text="Paint Required: 0 Liters" Margin="0,60,0,0"/>
+                </Grid>
+            </TabItem>
+            <TabItem Header="Tiles" Background="White">
+                <Grid Margin="20" Background="White">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="*"/>
+                    </Grid.RowDefinitions>
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="180"/>
+                        <ColumnDefinition Width="*"/>
+                    </Grid.ColumnDefinitions>
+                    <TextBlock Text="Room Length (m):" Grid.Row="0" Margin="0,0,10,10" VerticalAlignment="Center"/>
+                    <TextBox x:Name="RoomLengthBox" Grid.Row="0" Grid.Column="1" Margin="0,0,0,10" Padding="8" Height="35" Background="White" BorderBrush="#E9ECEF"/>
+                    <TextBlock Text="Room Width (m):" Grid.Row="1" Margin="0,0,10,10" VerticalAlignment="Center"/>
+                    <TextBox x:Name="RoomWidthBox" Grid.Row="1" Grid.Column="1" Margin="0,0,0,10" Padding="8" Height="35" Background="White" BorderBrush="#E9ECEF"/>
+                    <TextBlock Text="Tile Size (cm):" Grid.Row="2" Margin="0,0,10,10" VerticalAlignment="Center"/>
+                    <ComboBox x:Name="TileSizeCombo" Grid.Row="2" Grid.Column="1" Margin="0,0,0,10" Padding="8" Height="35" Background="White" BorderBrush="#E9ECEF">
+                        <ComboBoxItem Content="20×20"/>
+                        <ComboBoxItem Content="30×30"/>
+                        <ComboBoxItem Content="40×40"/>
+                        <ComboBoxItem Content="60×60"/>
+                        <ComboBoxItem Content="80×80"/>
+                    </ComboBox>
+                    <TextBlock Text="Waste Percentage (%):" Grid.Row="3" Margin="0,0,10,10" VerticalAlignment="Center"/>
+                    <TextBox x:Name="WasteBox" Grid.Row="3" Grid.Column="1" Margin="0,0,0,10" Padding="8" Height="35" Background="White" BorderBrush="#E9ECEF" Text="10"/>
+                    <!-- Buttons -->
+                    <StackPanel Grid.Row="4" Grid.ColumnSpan="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,20,0,20" ZIndex="10">
+                        <Button Content="Calculate" Style="{StaticResource MenuButtonStyle}" Background="#007BFF" Foreground="White" Click="TilesCalculate_Click"/>
+                        <Button Content="Save Data" Style="{StaticResource MenuButtonStyle}" Background="#28A745" Foreground="White" Click="TilesSave_Click"/>
+                    </StackPanel>
+                    <!-- Result -->
+                    <TextBlock x:Name="TilesResultText" Grid.Row="5" Grid.ColumnSpan="2" FontSize="16" FontWeight="Bold" TextAlignment="Center" Text="Tiles Needed: 0" Margin="0,20,0,0"/>
+                </Grid>
+            </TabItem>
+        </TabControl>
+    </Grid>
+    <Window.Resources>
+        <Style x:Key="MenuButtonStyle" TargetType="Button">
+            <Setter Property="FontSize" Value="13"/>
+            <Setter Property="Padding" Value="15,8"/>
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="BorderThickness" Value="0"/>
+            <Setter Property="Cursor" Value="Hand"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="Button">
+                        <Border Background="{TemplateBinding Background}" CornerRadius="4" Padding="{TemplateBinding Padding}">
+                            <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </Border>
+                        <ControlTemplate.Triggers>
+                            <Trigger Property="IsMouseOver" Value="True">
+                                <Setter Property="Opacity" Value="0.85"/>
+                            </Trigger>
+                        </ControlTemplate.Triggers>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
+</Window>
